@@ -3,11 +3,31 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {UserList} from './components/UserList'
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route 
+          exact
+          path='/'
+          render={(props) => <App username="hdytxr" userType="admin" {...props} />}
+        />
+      </Switch>
+
+      <Switch>
+        <Route 
+          exact
+          path="/userList"
+          render={(props) => <UserList {...props} />}
+        />
+      </Switch>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
