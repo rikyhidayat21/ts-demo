@@ -9,7 +9,7 @@ import {
 } from './store/user/UserActions'
 import { IUser } from './store/user/UserTypes'
 import { IAppState } from './store/RootReducer'
-import { MapDispatchToProps } from 'react-redux';
+import { MapDispatchToProps, connect, MapStateToProps } from 'react-redux';
 
 
 interface IAppOwnProps {
@@ -23,7 +23,7 @@ interface IAppDispatchToProps {
 }
 
 // sampe sini
-const App: React.FC<IAppOwnProps> = ({username, userType}): JSX.Element => {
+const AppUnconnected: React.FC<IAppOwnProps> = ({username, userType}): JSX.Element => {
   const [time, setTime] = useState<Date>(() => new Date(Date.now()))
   const [counter, setCounter] = useState<number>(3)
   const [message, setMessage] = useState<string>("")
@@ -99,4 +99,11 @@ const mapDispatchToProps: MapDispatchToProps<
   }
 })
 
-export default App;
+export const App = connect<
+  {},
+  IAppDispatchToProps,
+  IAppOwnProps,
+  IAppState
+>(null, mapDispatchToProps)(AppUnconnected);
+
+// next step: Connecting out components: user list
